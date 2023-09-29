@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: docker login
+      run: docker login -u gambeti -p dckr_pat_zUSNt-CaC3Z6s0-LSXFparPRXUc
+    - name: build image
+      run: docker build -t gambeti/ecommerce-api .
+    - name: push to docker
+      run: docker push gambeti/ecommerce-api
